@@ -24,10 +24,14 @@ public class Controller  {
             switch (getOption()) {
                 case '1': //TODO transpose
                     matrixDisplayer.showMessage("Which matrix would you like to transpose? \n" + "1 = the first one \n2 = second");
-                    if(scanner.nextInt() == 1){
-                        transposeMatrix(m1);
-                    }else if(scanner.nextInt() == 2){
-                        transposeMatrix(m2);
+                    try {
+                        if (scanner.nextInt() == 1) {
+                            transposeMatrix(m1);
+                        } else if (scanner.nextInt() == 2) {
+                            transposeMatrix(m2);
+                        }
+                    }catch (InputMismatchException ime){
+                        matrixDisplayer.showError("Enter only numbers\n");
                     }
                     break;
                 case '2': // TODO multiplication
@@ -44,7 +48,8 @@ public class Controller  {
                     isRunning = false;
                     matrixDisplayer.showMessage("Exit light (program)");
                     break;
-
+                case 'R': //reboot
+                    menu();
                 default:
                     matrixDisplayer.showMessage("Invalid option, please try again ");
             }
@@ -57,7 +62,7 @@ public class Controller  {
             try {
                 return scanner.nextInt();
             } catch (InputMismatchException ime) {
-                matrixDisplayer.showError(ime.getMessage());
+                matrixDisplayer.showError("Please, input a number");
                 scanner.next();
             }
         }
@@ -67,23 +72,32 @@ public class Controller  {
         matrixDisplayer.showMessage("Wybierz opcje: ");
         matrixDisplayer.showMessage(" 1. Transponowanie \n 2.  Mnozenie \n " +
                 "3. transponowanie macierzy wynikowej \n" +
-                "Q  - quit");
+                "Q  - quit\nR - reset");
         return  scanner.next().toUpperCase().charAt(0);
     }
 
+//    private void transposeMatrix(Matrix m){
+//        try{
+//        Matrix trans = Matrix.transpose(m);
+//        matrixDisplayer.showMessage("Transposed matrix:\n");
+//        matrixDisplayer.displayMatrix(trans);
+//        }catch (IndexOutOfBoundsException iae){
+//            matrixDisplayer.showError(iae.getMessage());
+//        }
+//    }
+
     private void transposeMatrix(Matrix m){
-//        m.transpose();
-        Matrix trans = Matrix.transpose(m);
-        matrixDisplayer.showMessage("Transposed matrix:\n");
-        matrixDisplayer.displayMatrix(m);
+        matrixDisplayer.showMessage("Transposed matrix: \n");
+        matrixDisplayer.displayTransposedMatrix(m);
     }
 
     private Matrix multiplyMatrices(Matrix m1, Matrix m2) {
         try{
             return Matrix.multiplication(m1,m2);
-        }catch (IllegalArgumentException iae){
-            matrixDisplayer.showError(iae.getMessage());
-            throw iae;
+        }catch (IllegalArgumentException | NullPointerException e){
+            matrixDisplayer.showError(e.getMessage());
+            matrixDisplayer.showError("EXCEPTION FROM CONTROLLER CLASS");
+            return new Matrix(0, 0);
         }
     }
 
@@ -92,17 +106,6 @@ public class Controller  {
         int sizeY2 = getIntInput("Y: ");
         Matrix m = new Matrix(sizeX2, sizeY2);
         m.init();
-//        addMatrixToTheList(m);
         return m;
     }
-
-//    private void addMatrixToTheList(Matrix m){
-//        matrices.add(m);
-//    }
-//    private void displayMatricesList(){
-//        matrixDisplayer.showMessage(matrices);
-//
-//    }
-
-
 }

@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Matrix {
     private final MatrixService matrixDisplayer = new MatrixService();
-//    private static List<Matrix> matrices = new ArrayList<>();
 
     @Getter
     private int sizeX;
@@ -29,7 +28,6 @@ public class Matrix {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.matrix = new int[sizeX][sizeY];
-//        this.matrices = new ArrayList<>();
     }
 
     public void init() {
@@ -60,49 +58,67 @@ public class Matrix {
         return result;
     }
 
-//    public Matrix transpose() {
-//        Matrix transposedMatrix = new Matrix(sizeY, sizeX);
-//        for (int i = 0; i < sizeX; i++) {
-//            for (int j = 0; j < sizeY; j++) {
-//                transposedMatrix.matrix[j][i] = this.matrix[i][j];
+//    public static Matrix transpose(Matrix m) { НОРМ
+//        Matrix transposedMatrix = new Matrix(m.sizeY, m.sizeX);
+//        try {
+//            for (int i = 0; i < m.sizeY; i++) {
+//                for (int j = 0; j < m.sizeX; j++) {
+//                    transposedMatrix.matrix[j][i] = m.matrix[i][j];
+//                }
 //            }
+//            return transposedMatrix;
+//        }catch (ArrayIndexOutOfBoundsException aioobe){
+//            System.err.println("EXCEPTION FROM MODEL CLASS");
+//            return new Matrix(0,0);
 //        }
-//        return transposedMatrix;
 //    }
 
     public static Matrix transpose(Matrix m) {
-        Matrix transposedMatrix = new Matrix(m.sizeY, m.sizeX);
+        int rows = m.sizeY;
+        int columns = m.sizeX;
+        Matrix transposedMatrix = new Matrix(columns, rows);
         try {
-            for (int i = 0; i < m.sizeX; i++) {
-                for (int j = 0; j < m.sizeY; j++) {
-                    transposedMatrix.matrix[i][j] = m.matrix[j][i];
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    transposedMatrix.matrix[j][i] = m.matrix[i][j];
                 }
             }
             return transposedMatrix;
-        }catch (ArrayIndexOutOfBoundsException aioobe){
-            return null;
+
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            System.err.println("EXCEPTION FROM MODEL CLASS");
+            return new Matrix(0, 0);
         }
     }
 
 
-
-
-
-//    public void addMatrixToTheList(Matrix m){
-//        matrices.add(m);
-//    }
-//
-//    public void displayMatricesList(List<Matrix> matrices){
-//        if (matrices == null || matrices.isEmpty()){
-//            matrixDisplayer.showMessage("Matrices list is empty");
-//        }else {
-//            for (Matrix matrix : matrices) {
-//                System.out.println(matrix);
+//    public static Matrix transpose(Matrix m) {
+//        Matrix transposedMatrix = new Matrix(m.sizeY, m.sizeX);
+//        for (int i = 0; i < m.sizeY; i++) {
+//            for (int j = 0; j < m.sizeX; j++) {
+//                transposedMatrix.matrix[j][i] = m.matrix[i][j];
 //            }
+//        }
+//        return transposedMatrix;
+//    } аутпут кидає в stderr + "Error: і Y вимір транспонованої матриці"
+
+//просто якась хуйня
+//    public static Matrix transpose(Matrix m) throws IndexOutOfBoundsException{
+////        Matrix res = m;
+//        Matrix res = new Matrix(m.sizeY, m.sizeX);
+//        try {
+//            for (int i = 0; i < m.sizeX; i++) {
+//                    for (int j = 0; j < m.sizeY; j++) {
+//                        res.matrix[i][j] = m.matrix[j][i];
+//                    }
+//                }
+//            return res;
+//        } catch (IndexOutOfBoundsException iae) {
+//            throw new ArrayIndexOutOfBoundsException("something went wrong(transpose) ");
+//            //якась діч тому що res має ті самі виміри, що  і початкова матриця. А мають бути початково обернені
 //        }
 //    }
 
-    //TODO ідею зі списком матриць краще вілкоасти, по завдання треба оперувати одночасно тільки двома матрицями
 
     @Override
     public String toString(){ //TODO доробити toString
