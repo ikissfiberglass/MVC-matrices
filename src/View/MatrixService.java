@@ -1,21 +1,21 @@
 package View;
-
-
 import Model.Matrix;
-
-import javax.sound.midi.Soundbank;
 
 public class MatrixService {
 
     public void displayMatrix(Matrix fantastic) {
-        System.out.print("[\n");
-            for( int i = 0; i < fantastic.getSizeX(); i++ ) {
-                for(int j = 0; j < fantastic.getSizeY(); j++ ) {
+        try {
+            System.out.print("[\n");
+            for (int i = 0; i < fantastic.getSizeX(); i++) {
+                for (int j = 0; j < fantastic.getSizeY(); j++) {
                     System.out.print(fantastic.getMatrix()[i][j] + " ");
                 }
                 System.out.print("\n");
             }
             System.out.print("]\n");
+        }catch (NullPointerException npe){
+            System.err.println("NPE caught in view");
+        }
     }
 
     public void displayTransposedMatrix(Matrix matrix) {
@@ -30,7 +30,7 @@ public class MatrixService {
     }
 
 
-    public  <T> void showMessage(T message){
+    public <T> void showMessage(T message){
         System.out.println(message);
     }
 

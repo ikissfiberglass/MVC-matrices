@@ -1,10 +1,8 @@
 package Model;
 import View.MatrixService;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Matrix {
@@ -16,9 +14,9 @@ public class Matrix {
     @Getter
     private int sizeY;
 
+    @Setter
     @Getter
     private int[][] matrix;
-
 
     public Matrix(){
         throw new IllegalArgumentException("No dimensions( ");
@@ -29,6 +27,7 @@ public class Matrix {
         this.sizeY = sizeY;
         this.matrix = new int[sizeX][sizeY];
     }
+
 
     public void init() {
         Random rand = new Random();
@@ -58,21 +57,6 @@ public class Matrix {
         return result;
     }
 
-//    public static Matrix transpose(Matrix m) { НОРМ
-//        Matrix transposedMatrix = new Matrix(m.sizeY, m.sizeX);
-//        try {
-//            for (int i = 0; i < m.sizeY; i++) {
-//                for (int j = 0; j < m.sizeX; j++) {
-//                    transposedMatrix.matrix[j][i] = m.matrix[i][j];
-//                }
-//            }
-//            return transposedMatrix;
-//        }catch (ArrayIndexOutOfBoundsException aioobe){
-//            System.err.println("EXCEPTION FROM MODEL CLASS");
-//            return new Matrix(0,0);
-//        }
-//    }
-
     public static Matrix transpose(Matrix m) {
         int rows = m.sizeY;
         int columns = m.sizeX;
@@ -91,38 +75,10 @@ public class Matrix {
         }
     }
 
-
-//    public static Matrix transpose(Matrix m) {
-//        Matrix transposedMatrix = new Matrix(m.sizeY, m.sizeX);
-//        for (int i = 0; i < m.sizeY; i++) {
-//            for (int j = 0; j < m.sizeX; j++) {
-//                transposedMatrix.matrix[j][i] = m.matrix[i][j];
-//            }
-//        }
-//        return transposedMatrix;
-//    } аутпут кидає в stderr + "Error: і Y вимір транспонованої матриці"
-
-//просто якась хуйня
-//    public static Matrix transpose(Matrix m) throws IndexOutOfBoundsException{
-////        Matrix res = m;
-//        Matrix res = new Matrix(m.sizeY, m.sizeX);
-//        try {
-//            for (int i = 0; i < m.sizeX; i++) {
-//                    for (int j = 0; j < m.sizeY; j++) {
-//                        res.matrix[i][j] = m.matrix[j][i];
-//                    }
-//                }
-//            return res;
-//        } catch (IndexOutOfBoundsException iae) {
-//            throw new ArrayIndexOutOfBoundsException("something went wrong(transpose) ");
-//            //якась діч тому що res має ті самі виміри, що  і початкова матриця. А мають бути початково обернені
-//        }
-//    }
-
-
     @Override
-    public String toString(){ //TODO доробити toString
-        return "";
+    public String toString(){
+        return "Matrix dimensions: " + sizeX +" "+ sizeY;
+
     }
 }
 
