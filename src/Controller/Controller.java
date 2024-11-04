@@ -23,14 +23,22 @@ public class Controller  {
             switch (getOption()) {
                 case '1': //TODO transposition
                     matrixDisplayer.showMessage("Which matrix would you like to transpose? \n" + "1 = the first one \n2 = second");
-                    try {
-                        if (scanner.nextInt() == 1) {
-                            transposeMatrix(m1);
-                        } else if (scanner.nextInt() == 2) {
-                            transposeMatrix(m2);
-                        }
-                    } catch (InputMismatchException ime) {
-                        matrixDisplayer.showError("Enter only numbers\n");
+//                    try {
+//                        if (scanner.nextInt() == 1) {
+//                            transposeMatrix(m1);
+//                        } else if (scanner.nextInt() == 2) {
+//                            transposeMatrix(m2);
+//                        }
+//                    } catch (InputMismatchException ime) {
+//                        matrixDisplayer.showError("Enter only numbers\n");
+//                    }
+                    int option = getIntInput("");
+                    if(option == 1){
+                       transposeMatrix(m1);
+                    }else if(option == 2){
+                        transposeMatrix(m2);
+                    }else {
+                        matrixDisplayer.showMessage("Choose between 1 and 2");
                     }
                     break;
                 case '2': // TODO multiplication
@@ -64,7 +72,7 @@ public class Controller  {
                     break;
                 case 'Q':
                     isRunning = false;
-                    matrixDisplayer.showMessage("Exit programz");
+                    matrixDisplayer.showMessage("Exit program");
                     break;
                 case 'R': //reboot
                     menu();
